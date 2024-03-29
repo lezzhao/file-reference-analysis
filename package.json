@@ -1,12 +1,15 @@
 {
-  "name": "file-reference-analysis",
+  "name": "franalyse",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "packageManager": "pnpm@8.15.5",
-  "description": "",
+  "description": "file reference analysis",
   "author": "lezzhao",
   "license": "MIT",
-  "keywords": [],
+  "keywords": [
+    "file reference analysis",
+    "analyse"
+  ],
   "sideEffects": false,
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
