@@ -1,7 +1,7 @@
 {
   "name": "franalyse",
   "type": "module",
-  "version": "0.0.1-beta.0",
+  "version": "0.0.1-beta.1",
   "packageManager": "pnpm@8.15.5",
   "description": "file reference analysis",
   "author": "lezzhao",
@@ -36,7 +36,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "fast-glob": "^3.3.2"
+    "fast-glob": "^3.3.2",
+    "ora": "^8.0.1"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.11.4",
@@ -44,7 +45,6 @@
     "bumpp": "^9.4.0",
     "cac": "^6.7.14",
     "eslint": "^8.57.0",
-    "ora": "^8.0.1",
     "pnpm": "^8.15.5",
     "rimraf": "^5.0.5",
     "taze": "^0.13.3",
