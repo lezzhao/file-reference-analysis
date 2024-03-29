@@ -1,11 +1,16 @@
 {
   "name": "franalyse",
   "type": "module",
-  "version": "0.0.1-beta",
+  "version": "0.0.1-beta.0",
   "packageManager": "pnpm@8.15.5",
   "description": "file reference analysis",
   "author": "lezzhao",
   "license": "MIT",
+  "homepage": "https://github.com/lezzhao/file-reference-analysis#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lezzhao/file-reference-analysis.git"
+  },
   "keywords": [
     "file reference analysis",
     "analyse"
