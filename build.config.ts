@@ -6,7 +6,7 @@ export default defineBuildConfig({
     'src/cli'
   ],
   declaration: true,
-  // clean: true,
+  clean: true,
   rollup: {
     emitCJS: true,
     inlineDependencies: true

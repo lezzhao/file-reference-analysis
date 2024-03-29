@@ -3,7 +3,7 @@ import { existsSync, promises as fs } from 'node:fs'
 import { resolve } from "node:path";
 import { version } from '../package.json'
 import { analyse } from './index'
-import ora from 'ora'
+import ora from "ora";
 
 const cli = cac('franalyse')
 
@@ -26,20 +26,24 @@ cli
         const { unusedFiles, circularDepMap } = await analyse(options.entry, { excludes, supSuffix, alias: options.alias }) || {}
         const tempDirName = resolve(process.cwd(), options.entry, '../../fra')
         if (!existsSync(tempDirName))
-            await fs.mkdir(tempDirName, { mode: '' })
-        await fs.writeFile(resolve(tempDirName, 'unusedFile.json'), JSON.stringify(unusedFiles, null, 2), {
-            encoding: 'utf-8',
-        })
-        const circularDep = Array.from(circularDepMap?.entries()!).map(([key, value]) => {
-            return {
-                [key]: value
-            }
-        })
-        await fs.writeFile(resolve(tempDirName, 'circular.json'), JSON.stringify(circularDep, null, 2), {
-            encoding: 'utf-8',
-        })
+            await fs.mkdir(tempDirName)
+        if (unusedFiles) {
+            await fs.writeFile(resolve(tempDirName, 'unusedFile.json'), JSON.stringify(unusedFiles, null, 2), {
+                encoding: 'utf-8',
+            })
+        }
+        if (circularDepMap) {
+            const circularDep = Array.from(circularDepMap?.entries()!).map(([key, value]) => {
+                return {
+                    [key]: value
+                }
+            })
+            await fs.writeFile(resolve(tempDirName, 'circular.json'), JSON.stringify(circularDep, null, 2), {
+                encoding: 'utf-8',
+            })
+            console.log(Array.from(circularDepMap?.keys()!));
+        }
 
-        console.log(Array.from(circularDepMap?.keys()!));
         spinner.succeed('Analysis completed')
 
     })
@@ -49,5 +53,4 @@ cli.help()
 // Display version number when `-v` or `--version` appears
 // It's also used in help message
 cli.version(version)
-
 cli.parse()
