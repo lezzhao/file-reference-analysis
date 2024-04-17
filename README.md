@@ -1,11 +1,11 @@
-# franalyse
+# fr-analyze
 
-**franalyse** - help you analyze your project file dependencies
+**fr-analyze** - help you analyze your project file dependencies
 
 <br>
 
 <pre>
-npm i -g <b>franalyse</b>
+npm i -g <b>fr-analyze</b>
 </pre>
 
 <br>
@@ -19,7 +19,7 @@ ni -v
 ni -h
 
 For more info, run any command with the `--help` flag:
-  $ franalyse --help
+  $ fr-analyze --help
 
 Options:
   -e, --entry <entry>        Entry file (default: ./src/main.ts)
@@ -31,4 +31,23 @@ Options:
 
 Examples:
 --alias.@ /src
+```
+
+<br>
+
+### Config file
+<br>
+With fra.config.ts|js file, you can configure the same options the command has.
+
+``` typescript
+import { defineConfig } from 'fr-analyze'
+
+export default defineConfig({
+  entry: './src/main.ts',
+  exclude: ['**/test/**/*'],
+  supSuffix: ['.ts', '.tsx'],
+  alias: {
+    '@': './src'
+  }
+})
 ```
