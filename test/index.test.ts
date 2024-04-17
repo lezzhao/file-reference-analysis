@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest'
-import { analyse } from '../src'
+import { analyze, defineConfig } from '../src'
 
 describe('find unused file list', () => {
   it('find unused file list', async () => {
-    expect(await analyse('./examples/src/main.ts', {
+    expect(await analyze(['./examples/src/main.ts'], {
       alias: {
         '@': './examples/src'
       },
-      excludes: ['**/services/**/*'],
+      exclude: ['**/services/**/*'],
       supSuffix: ['.ts', '.tsx']
     })).toMatchInlineSnapshot(`
       {
@@ -216,9 +216,12 @@ describe('find unused file list', () => {
           ],
         },
         "unusedFiles": [
+          "/Users/lezhao/EEO/file-reference-analysis/src/analyze.ts",
           "/Users/lezhao/EEO/file-reference-analysis/src/cli.ts",
+          "/Users/lezhao/EEO/file-reference-analysis/src/config.ts",
           "/Users/lezhao/EEO/file-reference-analysis/src/index.ts",
           "/Users/lezhao/EEO/file-reference-analysis/src/regex.ts",
+          "/Users/lezhao/EEO/file-reference-analysis/src/type.ts",
           "/Users/lezhao/EEO/file-reference-analysis/src/utils.ts",
         ],
       }
@@ -226,11 +229,11 @@ describe('find unused file list', () => {
   })
 
   it('test circular', async () => {
-    expect(await analyse('./examples/fixtures/index.ts', {
+    expect(await analyze(['./examples/fixtures/index.ts'], {
       alias: {
         '@': './examples/fixtures'
       },
-      supSuffix: '.ts'
+      supSuffix: ['.ts']
     })).toMatchInlineSnapshot(`
       {
         "circularDepMap": Map {
@@ -242,4 +245,33 @@ describe('find unused file list', () => {
       }
     `)
   })
+})
+
+describe('define config', () => {
+  it('test define config', async () => {
+    const config = defineConfig({
+      entry: './src/main.ts',
+      exclude: ['**/services/**/*'],
+      supSuffix: ['.ts', '.tsx'],
+      alias: {
+        '@': './src'
+      }
+    })
+    expect(config).toMatchInlineSnapshot(`
+      {
+        "alias": {
+          "@": "./src",
+        },
+        "entry": "./src/main.ts",
+        "exclude": [
+          "**/services/**/*",
+        ],
+        "supSuffix": [
+          ".ts",
+          ".tsx",
+        ],
+      }
+    `)
+  }
+  )
 })

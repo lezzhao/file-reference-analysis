@@ -1,5 +1,5 @@
 {
-  "name": "franalyse",
+  "name": "fr-analyze",
   "type": "module",
   "version": "0.0.1-beta.1",
   "packageManager": "pnpm@8.15.5",
@@ -13,14 +13,14 @@
   },
   "keywords": [
     "file reference analysis",
-    "analyse"
+    "analyze"
   ],
   "sideEffects": false,
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "bin": {
-    "franalyse": "bin/index.mjs"
+    "fr-analyze": "bin/index.mjs"
   },
   "files": [
     "dist"
@@ -36,11 +36,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "deepmerge": "^4.3.1",
     "fast-glob": "^3.3.2",
-    "ora": "^8.0.1"
+    "ora": "^8.0.1",
+    "unconfig": "^0.3.13"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.11.4",
+    "@types/debug": "^4.1.12",
     "@types/node": "^18.19.26",
     "bumpp": "^9.4.0",
     "cac": "^6.7.14",

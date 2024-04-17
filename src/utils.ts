@@ -22,7 +22,7 @@ export function searchPackageJSON(dir: string) {
     return packageJsonPath
 }
 // get installed packages of current project
-export async function findupDepPackages(path: string) {
+export async function findUpDepPackages(path: string) {
     const packageJsonPath = searchPackageJSON(path)
     if (!packageJsonPath) return []
     const packageJson = JSON.parse(await fs.readFile(packageJsonPath as string, 'utf-8'))
@@ -30,16 +30,16 @@ export async function findupDepPackages(path: string) {
 }
 // handles file without suffix
 export const transformPath = (path: string, { supSuffix }: { supSuffix: string[] | string }) => {
-    const suffixs = Array.isArray(supSuffix) ? supSuffix : [supSuffix]
+    const suffixes = Array.isArray(supSuffix) ? supSuffix : [supSuffix]
     try {
         if (statSync(path).isDirectory()) {
-            path = join(path, `index${suffixs[0]}`)
+            path = join(path, `index${suffixes[0]}`)
         }
     } catch (error) { }
     if (existsSync(path)) return path
     const pathInfo = parse(path)
     const temp = path
-    for (const suffix of suffixs) {
+    for (const suffix of suffixes) {
         path = pathInfo.ext ? path : `${temp}${suffix}`
         if (existsSync(path)) return path
     }
@@ -54,10 +54,10 @@ export function useCircularDepCheck() {
      * @param visited 
      * @returns 
      */
-    const checkPathIsvalid = (path: string, { visited }: { visited: string[] }) => {
+    const checkPathIsValid = (path: string, { visited }: { visited: string[] }) => {
         // When the file exits circular dep, interrupt and record dep link
         const index = visited.indexOf(path)
-        
+
         if (index !== -1) {
             const link = visited.slice(index)
             link.push(path)
@@ -67,7 +67,7 @@ export function useCircularDepCheck() {
             } else {
                 circularDepMap.get(path)?.push(str)
             }
-            
+
             return
         }
         // When the file has been accessed, skip it
@@ -82,6 +82,6 @@ export function useCircularDepCheck() {
     return {
         circularDepMap,
         visitedSet,
-        checkPathIsvalid
+        checkPathIsValid
     }
 }

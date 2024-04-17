@@ -2,9 +2,11 @@ lockfileVersion: 5.4
 
 specifiers:
   '@antfu/eslint-config': ^2.11.4
+  '@types/debug': ^4.1.12
   '@types/node': ^18.19.26
   bumpp: ^9.4.0
   cac: ^6.7.14
+  deepmerge: ^4.3.1
   eslint: ^8.57.0
   fast-glob: ^3.3.2
   ora: ^8.0.1
@@ -13,15 +15,19 @@ specifiers:
   taze: ^0.13.3
   typescript: ^5.4.3
   unbuild: ^2.0.0
+  unconfig: ^0.3.13
   vite: ^2.9.18
   vitest: ^1.4.0
 
 dependencies:
+  deepmerge: 4.3.1
   fast-glob: 3.3.2
   ora: 8.0.1
+  unconfig: 0.3.13
 
 devDependencies:
   '@antfu/eslint-config': 2.11.4_nhmc73lstjmyvfg4zkn5oubxte
+  '@types/debug': 4.1.12
   '@types/node': 18.19.26
   bumpp: 9.4.0
   cac: 6.7.14
@@ -144,7 +150,6 @@ packages:
 
   /@antfu/utils/0.7.7:
     resolution: {integrity: sha512-gFPqTG7otEJ8uP6wrhDv6mqwGWYZKNvAcCq6u9hOj0c+IKCEsY4L1oC9trPq2SaWIzAfHvqfBDxF591JkMf+kg==}
-    dev: true
 
   /@babel/code-frame/7.24.2:
     resolution: {integrity: sha512-y5+tLQyV8pg3fsiln67BVLD1P13Eg4lh5RW9mF0zUuvLrv9uIQ4MCL+CRT+FTsBlBjcIan6PGsLcBN0m3ClUyQ==}
@@ -1393,6 +1398,12 @@ packages:
       minimatch: 9.0.3
     dev: true
 
+  /@types/debug/4.1.12:
+    resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
+    dependencies:
+      '@types/ms': 0.7.34
+    dev: true
+
   /@types/eslint/8.56.6:
     resolution: {integrity: sha512-ymwc+qb1XkjT/gfoQwxIeHZ6ixH23A+tCT2ADSA/DPVKzAjwYkTXBMCQ/f6fe4wEa85Lhp26VPeUxI7wMhAi7A==}
     dependencies:
@@ -1412,6 +1423,10 @@ packages:
     resolution: {integrity: sha512-LnwD+mUEfxWMa1QpDraczIn6k0Ee3SMicuYSSzS6ZYl2gKS09EClnJYGd8Du6rfc5r/GZEk5o1mRb8TaTj03sQ==}
     dependencies:
       '@types/unist': 2.0.10
+    dev: true
+
+  /@types/ms/0.7.34:
+    resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
     dev: true
 
   /@types/node/18.19.26:
@@ -2334,11 +2349,9 @@ packages:
   /deepmerge/4.3.1:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /defu/6.1.4:
     resolution: {integrity: sha512-mEQCMmwJu317oSz8CwdIOdwf3xMif1ttiM8LTufzc3g6kR+9Pe236twL8j3IYT1F7GfRgGcW6MWxzZjLIkuHIg==}
-    dev: true
 
   /destr/2.0.3:
     resolution: {integrity: sha512-2N3BOUU4gYMpTP24s5rF5iP7BDr7uNTCs4ozw3kf/eKfvWSIu93GEBi5m427YoyJoeOzQ5smuu4nNAPGb8idSQ==}
@@ -3709,7 +3722,6 @@ packages:
   /jiti/1.21.0:
     resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
     hasBin: true
-    dev: true
 
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -5434,7 +5446,7 @@ packages:
       picocolors: 1.0.0
       prompts: 2.4.2
       semver: 7.6.0
-      unconfig: 0.3.11
+      unconfig: 0.3.13
       yargs: 17.7.2
     transitivePeerDependencies:
       - bluebird
@@ -5591,14 +5603,12 @@ packages:
       - supports-color
     dev: true
 
-  /unconfig/0.3.11:
-    resolution: {integrity: sha512-bV/nqePAKv71v3HdVUn6UefbsDKQWRX+bJIkiSm0+twIds6WiD2bJLWWT3i214+J/B4edufZpG2w7Y63Vbwxow==}
+  /unconfig/0.3.13:
+    resolution: {integrity: sha512-N9Ph5NC4+sqtcOjPfHrRcHekBCadCXWTBzp2VYYbySOHW0PfD9XLCeXshTXjkPYwLrBr9AtSeU0CZmkYECJhng==}
     dependencies:
       '@antfu/utils': 0.7.7
       defu: 6.1.4
       jiti: 1.21.0
-      mlly: 1.6.1
-    dev: true
 
   /undici-types/5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
