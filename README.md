@@ -22,7 +22,7 @@ For more info, run any command with the `--help` flag:
   $ fr-analyze --help
 
 Options:
-  -e, --entry <entry>        Entry file (default: ./src/main.ts)
+  -e, --entries <entries>        Entry files (default: ./src/main.ts)
   -s, --suffix <suffix>      when file has no suffix, auto complete (default: .ts)
   -ex, --excludes <pattern>  matches ignored files according to the regex (default: )
   -a, --alias <alias>        the alias configured in the project 
@@ -43,7 +43,7 @@ With fra.config.ts|js file, you can configure the same options the command has.
 import { defineConfig } from 'fr-analyze'
 
 export default defineConfig({
-  entry: './src/main.ts',
+  entries: './src/main.ts',
   exclude: ['**/test/**/*'],
   supSuffix: ['.ts', '.tsx'],
   alias: {

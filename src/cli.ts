@@ -1,5 +1,5 @@
 import cac from "cac";
-import { existsSync, promises as fs } from 'node:fs'
+import { promises as fs } from 'node:fs'
 import { resolve } from "node:path";
 import { version } from '../package.json'
 import { analyze } from './index'
@@ -10,7 +10,7 @@ const cli = cac('fr-analyze')
 
 cli
     .command('')
-    .option('-e, --entries <entries>', 'entries file')
+    .option('-e, --entries <entries>', 'entry files')
     .option('-s, --suffix <suffix>', 'when file has no suffix, auto complete')
     .option('-ex, --exclude <pattern>', 'matches ignored files according to the regex')
     .option('-a, --alias <alias>', 'the alias configured in the project').example('--alias.@ /src')
