@@ -15,29 +15,29 @@ const fileInfo: {
   exclude: [],
 }
 
-export async function analyze(entry: string[], options?: ExtraOptions) {
+export async function analyze(entries: string[], options?: ExtraOptions) {
 
   const { circularDepMap, visitedSet, checkPathIsValid } = useCircularDepCheck()
   const { alias, exclude = [], supSuffix = '.ts', cwd = process.cwd() } = options || {}
 
-  async function run(entry: string): Promise<AnalyzeResult> {
-    // entry file absolute path
-    const entryPath = resolve(cwd, entry)
-    const entryRoot = dirname(entryPath).split('/').pop()
+  async function run(entries: string): Promise<AnalyzeResult> {
+    // entries file absolute path
+    const entriesPath = resolve(cwd, entries)
+    const entriesRoot = dirname(entriesPath).split('/').pop()
 
     // get installed packages of current project
-    installedPackages = await findUpDepPackages(entryPath)
+    installedPackages = await findUpDepPackages(entriesPath)
 
-    const pattern = exclude.filter(Boolean).map(p => `!${p}`).concat(entryRoot ? `${entryRoot}/**/*` : '')
+    const pattern = exclude.filter(Boolean).map(p => `!${p}`).concat(entriesRoot ? `${entriesRoot}/**/*` : '')
     fileInfo.all = await fg(pattern, { dot: true })
     if (exclude.length)
       fileInfo.exclude = await fg(exclude, { dot: true })
-    // if entry file doesn't exist, return
-    if (!existsSync(entryPath)) return {
+    // if entries file doesn't exist, return
+    if (!existsSync(entriesPath)) return {
       unusedFiles: [],
       circularDepMap: new Map() as CircularDepMap
     }
-    await checkCircularDep(entryPath, { alias, visited: [], supSuffix })
+    await checkCircularDep(entriesPath, { alias, visited: [], supSuffix })
 
     const unusedFiles = fileInfo.all.map(i => resolve(i)).filter(file => !visitedSet.has(file)).sort()
 
@@ -87,7 +87,7 @@ export async function analyze(entry: string[], options?: ExtraOptions) {
     }
   }
 
-  const res = await Promise.allSettled(entry.map(run))
+  const res = await Promise.allSettled(entries.map(run))
 
   if (res.length) {
     return res.reduce((acc, cur) => {

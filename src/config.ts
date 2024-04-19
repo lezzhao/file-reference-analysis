@@ -13,7 +13,7 @@ function toArray(value?: string | string[]) {
 }
 
 const DEFAULT_OPTIONS: ConfigOptions = {
-  entry: './src/main.ts',
+  entries: './src/main.ts',
   supSuffix: ['.ts', '.tsx'],
   cwd: process.cwd(),
 }
@@ -21,7 +21,7 @@ const DEFAULT_OPTIONS: ConfigOptions = {
 function normalizeConfig<T extends ConfigOptions>(options: T) {
   options.exclude = toArray(options.exclude)
   options.supSuffix = toArray(options.supSuffix)
-  options.entry = toArray(options.entry)
+  options.entries = toArray(options.entries)
   return options
 }
 

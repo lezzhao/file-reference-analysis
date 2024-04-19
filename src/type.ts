@@ -31,9 +31,9 @@ export interface ConfigOptions {
     */
     supSuffix?: string | string[]
     /**
-     * entry file path
+     * entries file path
     */
-    entry: string | string[]
+    entries: string | string[]
     /**
      * current working directory
     */

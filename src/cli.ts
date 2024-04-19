@@ -10,7 +10,7 @@ const cli = cac('fr-analyze')
 
 cli
     .command('')
-    .option('-e, --entry <entry>', 'Entry file')
+    .option('-e, --entries <entries>', 'entries file')
     .option('-s, --suffix <suffix>', 'when file has no suffix, auto complete')
     .option('-ex, --exclude <pattern>', 'matches ignored files according to the regex')
     .option('-a, --alias <alias>', 'the alias configured in the project').example('--alias.@ /src')
@@ -18,9 +18,9 @@ cli
         const spinner = ora('Analyzing...').start()
         const configs = await resolveConfig(options)
 
-        const { unusedFiles, circularDepMap } = await analyze(configs.entry, configs) || {}
+        const { unusedFiles, circularDepMap } = await analyze(configs.entries, configs) || {}
 
-        const resultFilePath = resolve(process.cwd(), configs.entry[0], '../../fra.result.json')
+        const resultFilePath = resolve(process.cwd(), configs.entries[0], '../../fra.result.json')
         const circularDep = Array.from(circularDepMap?.entries()!).map(([key, value]) => {
             return {
                 [key]: value
