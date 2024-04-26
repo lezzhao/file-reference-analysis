@@ -1,12 +1,16 @@
 import cac from "cac";
+import ora from "ora";
 import { promises as fs } from 'node:fs'
 import { resolve } from "node:path";
+import c from 'picocolors'
+import createDebug from "debug";
+
 import { version } from '../package.json'
 import { analyze } from './index'
-import ora from "ora";
 import { resolveConfig } from "./config";
 
 const cli = cac('fr-analyze')
+const debug = createDebug('fr-analyze')
 
 cli
     .command('')
@@ -17,7 +21,7 @@ cli
     .action(async (options) => {
         const spinner = ora('Analyzing...').start()
         const configs = await resolveConfig(options)
-
+        debug(configs);
         const { unusedFiles, circularDepMap } = await analyze(configs.entries, configs) || {}
 
         const resultFilePath = resolve(process.cwd(), configs.entries[0], '../../fra.result.json')
@@ -33,8 +37,18 @@ cli
         await fs.writeFile(resultFilePath, JSON.stringify(result, null, 2), {
             encoding: 'utf-8',
         })
-        console.log(Array.from(circularDepMap?.keys()!));
+        debug({
+            unusedFiles: unusedFiles?.length,
+            circularDep: Array.from(circularDepMap?.keys()!).length
+        });
         spinner.succeed('Analysis completed')
+
+        const existCirDep = Array.from(circularDepMap?.keys()!).length
+        if (existCirDep || unusedFiles?.length) {
+            console.log(c.inverse(c.red('FR-ANALYZE')) + c.red(`${existCirDep ? 'Circular dependencies detected' : ''} ${unusedFiles?.length ? 'Unused files detected' : ''}, please go to ${resultFilePath}.`))
+        } else {
+            console.log(c.inverse(c.green('FR-ANALYZE')) + c.green(`There is no problem!`))
+        }
 
     })
 

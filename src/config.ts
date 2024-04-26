@@ -51,7 +51,6 @@ export async function resolveConfig<T extends ConfigOptions>(
   })
 
   const config = await loader.load()
-  console.log(config);
 
 
   if (!config.sources.length)
