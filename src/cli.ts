@@ -42,12 +42,16 @@ cli
             circularDep: Array.from(circularDepMap?.keys()!).length
         });
         spinner.succeed('Analysis completed')
+        console.log();
+        
 
         const existCirDep = Array.from(circularDepMap?.keys()!).length
         if (existCirDep || unusedFiles?.length) {
-            console.log(c.inverse(c.red('FR-ANALYZE')) + c.red(`${existCirDep ? 'Circular dependencies detected' : ''} ${unusedFiles?.length ? 'Unused files detected' : ''}, please go to ${resultFilePath}.`))
+            const both = existCirDep && unusedFiles?.length
+            console.log(c.inverse(c.bold(c.red(' FR-ANALYZE '))) + c.red(`${existCirDep ? ' files with a circular reference have been detected ' : ''}${both ? 'and' : ''}${unusedFiles?.length ? ' unused files have been detected' : ''}`))
+            console.log(`             please see ${c.underline(c.green(resultFilePath))} for details. `)
         } else {
-            console.log(c.inverse(c.green('FR-ANALYZE')) + c.green(`There is no problem!`))
+            console.log(c.inverse(c.bold(c.green(' FR-ANALYZE '))) + c.green(`nice!!! there is no problem! `))
         }
 
     })
