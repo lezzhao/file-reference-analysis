@@ -60,3 +60,25 @@ describe('define config', () => {
   }
   )
 })
+
+
+describe('test detect unused packages', () => {
+  it.only('test', async () => {
+    expect((await analyze(['./src/index.ts', './src/cli.ts']))?.unusedPackages).toMatchInlineSnapshot(`
+      [
+        "@antfu/eslint-config",
+        "@types/debug",
+        "@types/node",
+        "bumpp",
+        "eslint",
+        "pnpm",
+        "rimraf",
+        "taze",
+        "typescript",
+        "unbuild",
+        "vite",
+        "vitest",
+      ]
+    `)
+  })
+})

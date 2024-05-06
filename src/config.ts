@@ -1,14 +1,15 @@
-import { ConfigOptions } from "./type";
 import process from 'node:process'
 import deepmerge from 'deepmerge'
 import { createConfigLoader } from 'unconfig'
+import type { ConfigOptions } from './type'
 
 export function defineConfig(config: ConfigOptions): ConfigOptions {
   return config
 }
 
 function toArray(value?: string | string[]) {
-  if (!value) return []
+  if (!value)
+    return []
   return Array.isArray(value) ? value : value.split(',')
 }
 
@@ -37,7 +38,7 @@ export async function resolveConfig<T extends ConfigOptions>(
         files: [
           'fra.config',
         ],
-        extensions: ['js', 'ts', 'json']
+        extensions: ['js', 'ts', 'json'],
       },
       {
         files: [
@@ -52,11 +53,9 @@ export async function resolveConfig<T extends ConfigOptions>(
 
   const config = await loader.load()
 
-
   if (!config.sources.length)
     return deepmerge(defaults, options as T) as T
 
   const configOptions = normalizeConfig(config.config)
   return deepmerge(deepmerge(defaults, configOptions), options as T) as T
 }
-
