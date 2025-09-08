@@ -24,11 +24,7 @@ cli
     const { unusedFiles, circularDepMap } = await analyze(configs.entries, configs) || {}
 
     const resultFilePath = resolve(process.cwd(), configs.entries[0], '../../fra.result.json')
-    const circularDep = Array.from(circularDepMap?.entries()!).map(([key, value]) => {
-      return {
-        [key]: value,
-      }
-    })
+    const circularDep = Array.from(circularDepMap?.entries()!).map(([key, value]) => ({ [key]: value }))
     const result = {
       unused: unusedFiles,
       circularDep,

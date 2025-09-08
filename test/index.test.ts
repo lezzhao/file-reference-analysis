@@ -13,6 +13,7 @@ describe('find unused file list', () => {
       {
         "circularDepMap": Map {},
         "unusedFiles": [],
+        "unusedPackages": [],
       }
     `)
   })
@@ -27,6 +28,7 @@ describe('find unused file list', () => {
       {
         "circularDepMap": Map {},
         "unusedFiles": [],
+        "unusedPackages": [],
       }
     `)
   })
@@ -63,7 +65,7 @@ describe('define config', () => {
 
 
 describe('test detect unused packages', () => {
-  it.only('test', async () => {
+  it('should detect unused packages', async () => {
     expect((await analyze(['./src/index.ts', './src/cli.ts']))?.unusedPackages).toMatchInlineSnapshot(`
       [
         "@antfu/eslint-config",
