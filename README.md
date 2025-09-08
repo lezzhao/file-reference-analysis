@@ -13,10 +13,10 @@ npm i -g <b>fr-analyze</b>
 ``` bash
 
 # -v, --version   | Show version number
-ni -v
+fr-analyze -v
 
 # -h, --help      | Show help
-ni -h
+fr-analyze -h
 
 For more info, run any command with the `--help` flag:
   $ fr-analyze --help
